@@ -1,5 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Users, Ticket, Utensils, Shield, Zap } from "lucide-react";
+import restaurantImage from "@/assets/restaurant-dinner.jpg";
+import vendorsImage from "@/assets/vendors-working.jpg";
 
 const Features = () => {
   const features = [
@@ -7,37 +9,37 @@ const Features = () => {
       icon: Calendar,
       title: "Event Management",
       description: "Create and manage events with comprehensive timeline, guest lists, and vendor coordination.",
-      color: "text-blue-400"
+      color: "text-primary"
     },
     {
       icon: Users,
       title: "Vendor Network",
       description: "Connect with photographers, decorators, DJs, caterers and more. Book services seamlessly.",
-      color: "text-green-400"
+      color: "text-primary-glow"
     },
     {
       icon: Ticket,
       title: "Smart Ticketing",
       description: "Sell tickets with QR codes, manage seat selection, and handle check-ins effortlessly.",
-      color: "text-purple-400"
+      color: "text-purple-500"
     },
     {
       icon: Utensils,
       title: "Restaurant Booking",
       description: "Real-time table reservations with instant availability updates and time slot management.",
-      color: "text-orange-400"
+      color: "text-pink-500"
     },
     {
       icon: Shield,
       title: "Secure Platform",
       description: "Enterprise-grade security with OAuth2, JWT authentication, and role-based access control.",
-      color: "text-red-400"
+      color: "text-emerald-500"
     },
     {
       icon: Zap,
       title: "Microservice Architecture",
       description: "Scalable, resilient platform built with modern microservices for maximum performance.",
-      color: "text-yellow-400"
+      color: "text-orange-500"
     }
   ];
 
@@ -75,6 +77,35 @@ const Features = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+        
+        {/* Image Showcase */}
+        <div className="grid md:grid-cols-2 gap-8 mt-20">
+          <div className="relative overflow-hidden rounded-2xl shadow-elegant">
+            <img 
+              src={restaurantImage} 
+              alt="Restaurant dining experience" 
+              className="w-full h-64 object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-xl font-bold mb-2">Restaurant Reservations</h3>
+              <p className="text-sm opacity-90">Real-time booking with instant confirmations</p>
+            </div>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-2xl shadow-elegant">
+            <img 
+              src={vendorsImage} 
+              alt="Event vendors at work" 
+              className="w-full h-64 object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary-glow/60 to-transparent" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-xl font-bold mb-2">Professional Vendors</h3>
+              <p className="text-sm opacity-90">Connect with top-rated service providers</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

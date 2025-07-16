@@ -89,7 +89,7 @@ const Dashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-12">
-          <Card className="bg-gradient-card border-border/50">
+          <Card className="bg-gradient-card border-border/50 hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -101,38 +101,38 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-card border-border/50">
+          <Card className="bg-gradient-card border-border/50 hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm">Total Attendees</p>
                   <p className="text-2xl font-bold text-foreground">1,542</p>
                 </div>
-                <Users className="w-8 h-8 text-green-400" />
+                <Users className="w-8 h-8 text-primary-glow" />
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-card border-border/50">
+          <Card className="bg-gradient-card border-border/50 hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm">Revenue</p>
                   <p className="text-2xl font-bold text-foreground">$48,350</p>
                 </div>
-                <DollarSign className="w-8 h-8 text-yellow-400" />
+                <DollarSign className="w-8 h-8 text-emerald-500" />
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-card border-border/50">
+          <Card className="bg-gradient-card border-border/50 hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm">Active Vendors</p>
                   <p className="text-2xl font-bold text-foreground">12</p>
                 </div>
-                <Star className="w-8 h-8 text-purple-400" />
+                <Star className="w-8 h-8 text-purple-500" />
               </div>
             </CardContent>
           </Card>
