@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Users, Ticket, Utensils, Shield, Zap } from "lucide-react";
-import restaurantImage from "@/assets/restaurant-dinner.jpg";
-import vendorsImage from "@/assets/vendors-working.jpg";
+import restaurantImage from "@/assets/black-culture-dinner.jpg";
+import vendorsImage from "@/assets/black-culture-vendors.jpg";
 
 const Features = () => {
   const features = [
