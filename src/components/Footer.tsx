@@ -11,10 +11,10 @@ const Footer = () => {
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Calendar className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">EventEase</span>
+              <span className="text-xl font-extrabold text-foreground">EventEase</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Microservice event management platform for seamless event planning, vendor coordination, and real-time bookings.
+              Complete event management platform for seamless event planning, vendor coordination, and real-time bookings.
             </p>
             <div className="flex space-x-4 mt-6">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
@@ -68,7 +68,7 @@ const Footer = () => {
 
         <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 EventEase. Built with modern microservice architecture.
+            © 2024 EventEase. Built with modern web technologies.
           </p>
           <p className="text-muted-foreground text-sm mt-4 md:mt-0">
             Scalable • Secure • Reliable

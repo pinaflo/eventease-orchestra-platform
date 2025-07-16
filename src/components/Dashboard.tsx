@@ -120,7 +120,7 @@ const Dashboard = () => {
                   <p className="text-muted-foreground text-sm">Revenue</p>
                   <p className="text-2xl font-bold text-foreground">$48,350</p>
                 </div>
-                <DollarSign className="w-8 h-8 text-emerald-500" />
+                <DollarSign className="w-8 h-8 text-primary" />
               </div>
             </CardContent>
           </Card>
@@ -132,7 +132,7 @@ const Dashboard = () => {
                   <p className="text-muted-foreground text-sm">Active Vendors</p>
                   <p className="text-2xl font-bold text-foreground">12</p>
                 </div>
-                <Star className="w-8 h-8 text-purple-500" />
+                <Star className="w-8 h-8 text-primary-glow" />
               </div>
             </CardContent>
           </Card>

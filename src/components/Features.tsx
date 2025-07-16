@@ -21,25 +21,19 @@ const Features = () => {
       icon: Ticket,
       title: "Smart Ticketing",
       description: "Sell tickets with QR codes, manage seat selection, and handle check-ins effortlessly.",
-      color: "text-purple-500"
+      color: "text-primary"
     },
     {
       icon: Utensils,
       title: "Restaurant Booking",
       description: "Real-time table reservations with instant availability updates and time slot management.",
-      color: "text-pink-500"
+      color: "text-primary-glow"
     },
     {
       icon: Shield,
       title: "Secure Platform",
       description: "Enterprise-grade security with OAuth2, JWT authentication, and role-based access control.",
-      color: "text-emerald-500"
-    },
-    {
-      icon: Zap,
-      title: "Microservice Architecture",
-      description: "Scalable, resilient platform built with modern microservices for maximum performance.",
-      color: "text-orange-500"
+      color: "text-primary"
     }
   ];
 
@@ -58,7 +52,7 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {features.map((feature, index) => (
             <Card 
               key={index}

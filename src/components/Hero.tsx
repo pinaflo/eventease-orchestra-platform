@@ -18,7 +18,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto animate-fade-in">
           <div className="flex items-center justify-center mb-6">
             <div className="bg-primary/20 backdrop-blur-sm rounded-full px-4 py-2 border border-primary/30">
-              <span className="text-primary font-medium">✨ Microservice Event Platform</span>
+              <span className="text-primary font-medium">✨ Complete Event Platform</span>
             </div>
           </div>
           

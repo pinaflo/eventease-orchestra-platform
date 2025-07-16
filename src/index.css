@@ -17,34 +17,34 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 280 100% 70%;
+    --primary: 142 76% 36%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 320 100% 75%;
+    --primary-glow: 142 69% 58%;
 
-    --secondary: 270 100% 97%;
-    --secondary-foreground: 280 100% 15%;
+    --secondary: 142 76% 96%;
+    --secondary-foreground: 142 76% 15%;
 
-    --muted: 270 100% 97%;
+    --muted: 142 76% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 320 100% 95%;
-    --accent-foreground: 280 100% 15%;
+    --accent: 142 76% 95%;
+    --accent-foreground: 142 76% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 320 100% 90%;
-    --input: 320 100% 95%;
-    --ring: 280 100% 70%;
+    --border: 142 76% 90%;
+    --input: 142 76% 95%;
+    --ring: 142 76% 36%;
 
-    /* EventEase Bright Design System */
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(320 100% 75%));
-    --gradient-hero: linear-gradient(135deg, hsl(280 100% 97%), hsl(320 100% 95%));
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(320 100% 98%));
+    /* EventEase Green & White Design System */
+    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 69% 58%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(142 76% 97%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(142 76% 98%));
     
-    --shadow-elegant: 0 25px 50px -12px hsl(280 100% 70% / 0.3);
-    --shadow-glow: 0 0 40px hsl(320 100% 75% / 0.4);
-    --shadow-card: 0 4px 6px -1px hsl(280 100% 70% / 0.1), 0 2px 4px -1px hsl(320 100% 75% / 0.06);
+    --shadow-elegant: 0 25px 50px -12px hsl(142 76% 36% / 0.3);
+    --shadow-glow: 0 0 40px hsl(142 69% 58% / 0.4);
+    --shadow-card: 0 4px 6px -1px hsl(142 76% 36% / 0.1), 0 2px 4px -1px hsl(142 69% 58% / 0.06);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
