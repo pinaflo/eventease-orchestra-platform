@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Compass, Users, Utensils, Ticket } from "lucide-react";
+import { Rocket, Users, Utensils, Ticket } from "lucide-react";
 const Header = () => {
   return <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Compass className="w-5 h-5 text-primary-foreground" />
+              <Rocket className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-foreground text-4xl font-extrabold">OUTSIDE</span>
           </div>
