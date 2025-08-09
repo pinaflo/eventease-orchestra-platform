@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Rocket, Users, Utensils, Ticket } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
+  
   return <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
@@ -30,7 +33,12 @@ const Header = () => {
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
-            <Button variant="default" size="sm" className="bg-gradient-primary hover:opacity-90 transition-opacity">
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="bg-gradient-primary hover:opacity-90 transition-opacity"
+              onClick={() => navigate('/dashboard')}
+            >
               Get Started
             </Button>
           </div>
