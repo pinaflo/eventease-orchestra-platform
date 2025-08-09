@@ -22,6 +22,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -29,6 +36,7 @@ import { cn } from "@/lib/utils";
 const formSchema = z.object({
   title: z.string().min(1, "Event title is required"),
   description: z.string().optional(),
+  category: z.string().min(1, "Event category is required"),
   date: z.date({
     required_error: "Event date is required",
   }),
@@ -56,6 +64,7 @@ const CreateEvent = () => {
     defaultValues: {
       title: "",
       description: "",
+      category: "",
       startTime: "",
       endTime: "",
       location: "",
@@ -131,6 +140,39 @@ const CreateEvent = () => {
                         {...field} 
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select event category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="business">Business</SelectItem>
+                        <SelectItem value="charity">Charity</SelectItem>
+                        <SelectItem value="community">Community</SelectItem>
+                        <SelectItem value="education">Education</SelectItem>
+                        <SelectItem value="concert">Concert</SelectItem>
+                        <SelectItem value="conference">Conference</SelectItem>
+                        <SelectItem value="festival">Festival</SelectItem>
+                        <SelectItem value="health">Health</SelectItem>
+                        <SelectItem value="networking">Networking</SelectItem>
+                        <SelectItem value="music">Music</SelectItem>
+                        <SelectItem value="art">Art</SelectItem>
+                        <SelectItem value="workshop">Workshop</SelectItem>
+                        <SelectItem value="sport">Sport</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
