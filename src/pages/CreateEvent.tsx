@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Clock } from "lucide-react";
+import { CalendarIcon, Clock, Sparkles } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -61,6 +62,7 @@ const formSchema = z.object({
 const CreateEvent = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -96,6 +98,46 @@ const CreateEvent = () => {
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const generateDescription = async () => {
+    const title = form.getValues("title");
+    const shortDescription = form.getValues("shortDescription");
+    const category = form.getValues("category");
+    const eventType = form.getValues("eventType");
+
+    if (!title || !shortDescription || !category || !eventType) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in the title, short description, category, and event type before generating.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-description', {
+        body: { title, shortDescription, category, eventType }
+      });
+
+      if (error) throw error;
+
+      form.setValue("fullDescription", data.description);
+      toast({
+        title: "Description Generated!",
+        description: "AI has generated a detailed description for your event.",
+      });
+    } catch (error) {
+      console.error("Error generating description:", error);
+      toast({
+        title: "Generation Failed",
+        description: "Failed to generate description. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -151,7 +193,20 @@ const CreateEvent = () => {
                 name="fullDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Description</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Full Description</FormLabel>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={generateDescription}
+                        disabled={isGenerating}
+                        className="text-xs"
+                      >
+                        <Sparkles className="mr-1 h-3 w-3" />
+                        {isGenerating ? "Generating..." : "Generate with AI"}
+                      </Button>
+                    </div>
                     <FormControl>
                       <Textarea 
                         placeholder="Detailed event description..." 
