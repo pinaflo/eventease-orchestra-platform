@@ -35,8 +35,11 @@ import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().min(1, "Event title is required"),
-  description: z.string().optional(),
+  shortDescription: z.string().min(1, "Short description is required"),
+  fullDescription: z.string().optional(),
   category: z.string().min(1, "Event category is required"),
+  eventType: z.string().min(1, "Event type is required"),
+  coverImage: z.any().optional(),
   date: z.date({
     required_error: "Event date is required",
   }),
@@ -63,8 +66,10 @@ const CreateEvent = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      description: "",
+      shortDescription: "",
+      fullDescription: "",
       category: "",
+      eventType: "",
       startTime: "",
       endTime: "",
       location: "",
@@ -129,13 +134,27 @@ const CreateEvent = () => {
 
               <FormField
                 control={form.control}
-                name="description"
+                name="shortDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>Short Description</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Brief event summary..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="fullDescription"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Description</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="Describe your event..." 
+                        placeholder="Detailed event description..." 
                         className="min-h-[100px]"
                         {...field} 
                       />
@@ -147,39 +166,84 @@ const CreateEvent = () => {
 
               <FormField
                 control={form.control}
-                name="category"
-                render={({ field }) => (
+                name="coverImage"
+                render={({ field: { onChange, value, ...field } }) => (
                   <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select event category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="charity">Charity</SelectItem>
-                        <SelectItem value="community">Community</SelectItem>
-                        <SelectItem value="education">Education</SelectItem>
-                        <SelectItem value="concert">Concert</SelectItem>
-                        <SelectItem value="conference">Conference</SelectItem>
-                        <SelectItem value="festival">Festival</SelectItem>
-                        <SelectItem value="health">Health</SelectItem>
-                        <SelectItem value="networking">Networking</SelectItem>
-                        <SelectItem value="music">Music</SelectItem>
-                        <SelectItem value="art">Art</SelectItem>
-                        <SelectItem value="workshop">Workshop</SelectItem>
-                        <SelectItem value="sport">Sport</SelectItem>
-                        <SelectItem value="religious">Religious</SelectItem>
-                        <SelectItem value="family">Family</SelectItem>
-                        <SelectItem value="others">Others</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormLabel>Event Cover Image</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={(e) => onChange(e.target.files?.[0])}
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground">Event Type & Settings</h3>
+                
+                <FormField
+                  control={form.control}
+                  name="eventType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Event Type</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select event type" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="free">Free Event</SelectItem>
+                          <SelectItem value="paid">Paid Event</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select event category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="business">Business</SelectItem>
+                          <SelectItem value="charity">Charity</SelectItem>
+                          <SelectItem value="community">Community</SelectItem>
+                          <SelectItem value="education">Education</SelectItem>
+                          <SelectItem value="concert">Concert</SelectItem>
+                          <SelectItem value="conference">Conference</SelectItem>
+                          <SelectItem value="festival">Festival</SelectItem>
+                          <SelectItem value="health">Health</SelectItem>
+                          <SelectItem value="networking">Networking</SelectItem>
+                          <SelectItem value="music">Music</SelectItem>
+                          <SelectItem value="art">Art</SelectItem>
+                          <SelectItem value="workshop">Workshop</SelectItem>
+                          <SelectItem value="sport">Sport</SelectItem>
+                          <SelectItem value="religious">Religious</SelectItem>
+                          <SelectItem value="family">Family</SelectItem>
+                          <SelectItem value="others">Others</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}
