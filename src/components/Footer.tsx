@@ -1,4 +1,4 @@
-import { Calendar, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Mountain, Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,9 +9,9 @@ const Footer = () => {
           <div className="md:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-primary-foreground" />
+                <Mountain className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-extrabold text-foreground">EventEase</span>
+              <span className="text-xl font-extrabold text-foreground">OUTSIDE</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Complete event management platform for seamless event planning, vendor coordination, and real-time bookings.
@@ -68,7 +68,7 @@ const Footer = () => {
 
         <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 EventEase. Built with modern web technologies.
+            © 2024 OUTSIDE. Built with modern web technologies.
           </p>
           <p className="text-muted-foreground text-sm mt-4 md:mt-0">
             Scalable • Secure • Reliable

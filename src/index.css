@@ -37,7 +37,7 @@ All colors MUST be HSL.
     --input: 142 76% 95%;
     --ring: 142 76% 36%;
 
-    /* EventEase Green & White Design System */
+    /* OUTSIDE Green & White Design System */
     --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 69% 58%));
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(142 76% 97%));
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(142 76% 98%));
