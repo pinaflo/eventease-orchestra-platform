@@ -41,6 +41,8 @@ const formSchema = z.object({
   category: z.string().min(1, "Event category is required"),
   eventType: z.string().min(1, "Event type is required"),
   coverImage: z.any().optional(),
+  videoUrl: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
+  donationUrl: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
   date: z.date({
     required_error: "Event date is required",
   }),
@@ -72,6 +74,8 @@ const CreateEvent = () => {
       fullDescription: "",
       category: "",
       eventType: "",
+      videoUrl: "",
+      donationUrl: "",
       startTime: "",
       endTime: "",
       location: "",
@@ -393,6 +397,34 @@ const CreateEvent = () => {
                     <FormLabel>Location</FormLabel>
                     <FormControl>
                       <Input placeholder="Event location..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="videoUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Video URL (Optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://youtube.com/watch?v=..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="donationUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Donation URL (Optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://gofundme.com/..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
