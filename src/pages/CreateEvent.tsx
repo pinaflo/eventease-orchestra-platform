@@ -171,6 +171,9 @@ const CreateEvent = () => {
                         <SelectItem value="art">Art</SelectItem>
                         <SelectItem value="workshop">Workshop</SelectItem>
                         <SelectItem value="sport">Sport</SelectItem>
+                        <SelectItem value="religious">Religious</SelectItem>
+                        <SelectItem value="family">Family</SelectItem>
+                        <SelectItem value="others">Others</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
