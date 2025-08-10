@@ -516,7 +516,7 @@ const CreateEvent = () => {
                         <div className="space-y-1 leading-none">
                           <FormLabel className="flex items-center gap-2">
                             <Building className="w-4 h-4" />
-                            Lift Access
+                            Lift/Elevator Access
                           </FormLabel>
                         </div>
                       </FormItem>
@@ -537,7 +537,7 @@ const CreateEvent = () => {
                         <div className="space-y-1 leading-none">
                           <FormLabel className="flex items-center gap-2">
                             <Accessibility className="w-4 h-4" />
-                            Wheelchair Access
+                            Wheelchair Accessible
                           </FormLabel>
                         </div>
                       </FormItem>
@@ -546,22 +546,21 @@ const CreateEvent = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex justify-between pt-6">
                 <Button 
-                  type="button"
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => navigate("/dashboard")}
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => navigate('/dashboard')}
                 >
-                  Previous
+                  Cancel
                 </Button>
-                
                 <Button 
                   type="submit" 
-                  className="flex-1" 
+                  className="bg-gradient-primary hover:opacity-90 transition-opacity"
                   disabled={isSubmitting}
                 >
-                  Next
+                  {isSubmitting ? "Creating..." : "Continue to Pricing"}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </form>
