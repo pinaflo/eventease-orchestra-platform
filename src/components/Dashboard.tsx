@@ -11,7 +11,7 @@ const Dashboard = () => {
       date: "Dec 15, 2024",
       status: "upcoming",
       attendees: 250,
-      revenue: "$12,500"
+      revenue: "₵12,500"
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ const Dashboard = () => {
       date: "Nov 28, 2024",
       status: "planning",
       attendees: 150,
-      revenue: "$8,750"
+      revenue: "₵8,750"
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ const Dashboard = () => {
       date: "Nov 10, 2024",
       status: "completed",
       attendees: 85,
-      revenue: "$5,200"
+      revenue: "₵5,200"
     }
   ];
 
@@ -36,21 +36,21 @@ const Dashboard = () => {
       name: "Elite Photography",
       service: "Photography",
       rating: 4.9,
-      price: "$500-800",
+      price: "₵500-800",
       availability: "Available"
     },
     {
       name: "Bloom Decorators",
       service: "Decoration",
       rating: 4.8,
-      price: "$300-600",
+      price: "₵300-600",
       availability: "Busy"
     },
     {
       name: "DJ ProSound",
       service: "Music & Audio",
       rating: 4.7,
-      price: "$400-700",
+      price: "₵400-700",
       availability: "Available"
     }
   ];
@@ -118,7 +118,7 @@ const Dashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm">Revenue</p>
-                  <p className="text-2xl font-bold text-foreground">$48,350</p>
+                  <p className="text-2xl font-bold text-foreground">₵48,350</p>
                 </div>
                 <DollarSign className="w-8 h-8 text-primary" />
               </div>

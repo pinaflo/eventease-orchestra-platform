@@ -101,7 +101,7 @@ export default function EventPricing() {
       rsvpDescription: "",
       isPaid: false,
       absorbTransactionFees: false,
-      currency: "GHS",
+      currency: "₵",
       pricingTiers: [],
       enableDiscount: false,
       discountPercentage: undefined,
