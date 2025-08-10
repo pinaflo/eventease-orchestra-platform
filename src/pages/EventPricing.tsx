@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Percent, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Percent, Plus, Trash2, ShoppingBag, Image } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +22,7 @@ const addOnSchema = z.object({
   description: z.string().optional(),
   price: z.string().min(1, "Price is required").transform((val) => parseFloat(val)),
   quantity: z.string().min(1, "Quantity is required").transform((val) => parseInt(val, 10)),
+  image: z.string().optional(),
 });
 
 const pricingSchema = z.object({
@@ -82,7 +83,7 @@ type PricingFormData = z.infer<typeof pricingSchema>;
 export default function EventPricing() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [addOns, setAddOns] = useState([{ name: "", description: "", price: "", quantity: "" }]);
+  const [addOns, setAddOns] = useState([{ name: "", description: "", price: "", quantity: "", image: "" }]);
 
   const form = useForm<PricingFormData>({
     resolver: zodResolver(pricingSchema),
@@ -110,7 +111,7 @@ export default function EventPricing() {
   const watchEnableDiscount = form.watch("enableDiscount");
 
   const addNewAddOn = () => {
-    setAddOns([...addOns, { name: "", description: "", price: "", quantity: "" }]);
+    setAddOns([...addOns, { name: "", description: "", price: "", quantity: "", image: "" }]);
   };
 
   const removeAddOn = (index: number) => {
@@ -625,6 +626,35 @@ export default function EventPricing() {
                           onChange={(e) => updateAddOn(index, "description", e.target.value)}
                           className="mt-1"
                         />
+                      </div>
+                    </div>
+
+                    {/* Image Upload */}
+                    <div>
+                      <Label htmlFor={`addon-image-${index}`} className="text-xs flex items-center gap-2">
+                        <Image className="w-3 h-3" />
+                        Product Image
+                      </Label>
+                      <div className="mt-1 space-y-2">
+                        <Input
+                          id={`addon-image-${index}`}
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              // For now, just store the file name
+                              // In production, you would upload to storage
+                              updateAddOn(index, "image", file.name);
+                            }
+                          }}
+                          className="cursor-pointer"
+                        />
+                        {addOn.image && (
+                          <p className="text-xs text-muted-foreground">
+                            Selected: {addOn.image}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
