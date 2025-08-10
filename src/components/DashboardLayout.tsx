@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Rocket, CalendarPlus, BarChart3, Users, Settings } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const DashboardLayout = () => {
+  const { signOut } = useAuth();
+  
   const navItems = [
     { icon: CalendarPlus, label: "Create Event", path: "/dashboard/create-event" },
     { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
@@ -23,7 +26,7 @@ const DashboardLayout = () => {
               </div>
               <span className="text-foreground text-2xl font-extrabold">OUTSIDE</span>
             </div>
-            <Button variant="outline">Sign Out</Button>
+            <Button variant="outline" onClick={signOut}>Sign Out</Button>
           </div>
         </div>
       </header>
