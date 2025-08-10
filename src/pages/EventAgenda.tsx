@@ -51,12 +51,11 @@ const EventAgenda = () => {
     console.log("Agenda data:", data);
     
     toast({
-      title: "Event created successfully!",
-      description: "Your event has been created and is ready to publish.",
+      title: "Agenda saved successfully!",
+      description: "Your event agenda has been saved.",
     });
 
-    // Navigate back to dashboard
-    navigate("/dashboard");
+    navigate("/dashboard/event-faq");
   };
 
   const handlePrevious = () => {
@@ -225,7 +224,7 @@ const EventAgenda = () => {
                     Previous
                   </Button>
                   <Button type="submit">
-                    Complete Event
+                    Continue to FAQ
                   </Button>
                 </div>
               </form>
