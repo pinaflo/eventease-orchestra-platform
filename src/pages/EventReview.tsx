@@ -7,7 +7,7 @@ import {
   Calendar, 
   MapPin, 
   Users, 
-  DollarSign, 
+  CreditCard, 
   User, 
   Clock, 
   HelpCircle, 
@@ -172,7 +172,7 @@ const EventReview = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5" />
+              <CreditCard className="h-5 w-5" />
               Pricing
             </CardTitle>
             <Button 
