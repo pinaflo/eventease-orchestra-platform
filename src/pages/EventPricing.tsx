@@ -13,9 +13,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Percent } from "lucide-react";
+import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Percent, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+
+const addOnSchema = z.object({
+  name: z.string().min(1, "Add-on name is required"),
+  description: z.string().optional(),
+  price: z.string().min(1, "Price is required").transform((val) => parseFloat(val)),
+  quantity: z.string().min(1, "Quantity is required").transform((val) => parseInt(val, 10)),
+});
 
 const pricingSchema = z.object({
   eventType: z.enum(["private", "public"], {
@@ -34,6 +41,7 @@ const pricingSchema = z.object({
   enableDiscount: z.boolean().optional(),
   discountPercentage: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
   refundPolicy: z.boolean().optional(),
+  addOns: z.array(addOnSchema).optional(),
 }).refine(
   (data) => {
     if (data.rsvpRequired && !data.rsvpDeadline) {
@@ -74,6 +82,7 @@ type PricingFormData = z.infer<typeof pricingSchema>;
 export default function EventPricing() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [addOns, setAddOns] = useState([{ name: "", description: "", price: "", quantity: "" }]);
 
   const form = useForm<PricingFormData>({
     resolver: zodResolver(pricingSchema),
@@ -92,6 +101,7 @@ export default function EventPricing() {
       enableDiscount: false,
       discountPercentage: undefined,
       refundPolicy: false,
+      addOns: [],
     },
   });
 
@@ -99,10 +109,41 @@ export default function EventPricing() {
   const watchIsPaid = form.watch("isPaid");
   const watchEnableDiscount = form.watch("enableDiscount");
 
+  const addNewAddOn = () => {
+    setAddOns([...addOns, { name: "", description: "", price: "", quantity: "" }]);
+  };
+
+  const removeAddOn = (index: number) => {
+    if (addOns.length > 1) {
+      setAddOns(addOns.filter((_, i) => i !== index));
+    }
+  };
+
+  const updateAddOn = (index: number, field: string, value: string) => {
+    const updatedAddOns = [...addOns];
+    updatedAddOns[index] = { ...updatedAddOns[index], [field]: value };
+    setAddOns(updatedAddOns);
+  };
+
   const onSubmit = async (data: PricingFormData) => {
     setIsSubmitting(true);
     try {
-      console.log("Pricing data:", data);
+      // Include add-ons in the submission data
+      const formattedAddOns = addOns
+        .filter(addOn => addOn.name.trim() !== "")
+        .map(addOn => ({
+          name: addOn.name,
+          description: addOn.description,
+          price: parseFloat(addOn.price) || 0,
+          quantity: parseInt(addOn.quantity) || 0,
+        }));
+      
+      const submissionData = {
+        ...data,
+        addOns: formattedAddOns,
+      };
+      
+      console.log("Pricing data:", submissionData);
       // Handle form submission here
       navigate("/dashboard");
     } catch (error) {
@@ -496,6 +537,99 @@ export default function EventPricing() {
                   />
                 </div>
               )}
+
+              {/* Add-ons Section */}
+              <div className="space-y-4 rounded-lg border p-4 bg-muted/50">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium flex items-center gap-2">
+                      <ShoppingBag className="w-4 h-4" />
+                      Add-ons & Merchandise
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Sell additional items like merchandise, food, or services
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addNewAddOn}
+                    className="flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Item
+                  </Button>
+                </div>
+
+                {addOns.map((addOn, index) => (
+                  <div key={index} className="space-y-3 rounded-lg border p-3 bg-background">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-medium">Item {index + 1}</h4>
+                      {addOns.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeAddOn(index)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor={`addon-name-${index}`} className="text-xs">Name *</Label>
+                        <Input
+                          id={`addon-name-${index}`}
+                          placeholder="e.g., T-shirt, Food, Drink"
+                          value={addOn.name}
+                          onChange={(e) => updateAddOn(index, "name", e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor={`addon-price-${index}`} className="text-xs">Price *</Label>
+                        <Input
+                          id={`addon-price-${index}`}
+                          type="number"
+                          step="0.01"
+                          placeholder="0.00"
+                          value={addOn.price}
+                          onChange={(e) => updateAddOn(index, "price", e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor={`addon-quantity-${index}`} className="text-xs">Available Quantity *</Label>
+                        <Input
+                          id={`addon-quantity-${index}`}
+                          type="number"
+                          placeholder="e.g., 50"
+                          value={addOn.quantity}
+                          onChange={(e) => updateAddOn(index, "quantity", e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor={`addon-description-${index}`} className="text-xs">Description</Label>
+                        <Input
+                          id={`addon-description-${index}`}
+                          placeholder="Optional description"
+                          value={addOn.description}
+                          onChange={(e) => updateAddOn(index, "description", e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               {/* Navigation Buttons */}
               <div className="flex gap-4">
