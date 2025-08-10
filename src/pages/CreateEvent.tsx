@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Clock, Sparkles, ArrowRight } from "lucide-react";
+import { CalendarIcon, Clock, Sparkles, ArrowRight, MapPin, Car, Building, Accessibility } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +50,10 @@ const formSchema = z.object({
   }),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
-  
+  location: z.string().min(1, "Event location is required"),
+  parkingAvailable: z.boolean(),
+  liftAccess: z.boolean(),
+  wheelchairAccess: z.boolean(),
 }).refine((data) => {
   if (data.startTime && data.endTime) {
     const start = new Date(`2000-01-01T${data.startTime}`);
@@ -80,7 +84,10 @@ const CreateEvent = () => {
       donationUrl: "",
       startTime: "",
       endTime: "",
-      
+      location: "",
+      parkingAvailable: false,
+      liftAccess: false,
+      wheelchairAccess: false,
     },
   });
 
@@ -90,8 +97,8 @@ const CreateEvent = () => {
       // Save form data and navigate to accessibility page
       console.log("Event data:", values);
       
-      // Navigate to accessibility page
-      navigate("/dashboard/event-accessibility");
+      // Navigate to pricing page
+      navigate("/dashboard/event-pricing");
     } catch (error) {
       toast({
         title: "Error",
@@ -415,6 +422,95 @@ const CreateEvent = () => {
                   </FormItem>
                 )}
               />
+
+              {/* Location & Accessibility Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5" />
+                  <h3 className="text-lg font-semibold">Location & Accessibility</h3>
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Event Location</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter event venue or address" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="space-y-3">
+                  <h4 className="font-medium text-muted-foreground">Accessibility Features</h4>
+                  
+                  <FormField
+                    control={form.control}
+                    name="parkingAvailable"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="flex items-center gap-2">
+                            <Car className="w-4 h-4" />
+                            Parking Available
+                          </FormLabel>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="liftAccess"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="flex items-center gap-2">
+                            <Building className="w-4 h-4" />
+                            Lift Access
+                          </FormLabel>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="wheelchairAccess"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="flex items-center gap-2">
+                            <Accessibility className="w-4 h-4" />
+                            Wheelchair Access
+                          </FormLabel>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
 
               <div className="flex gap-4">
                 <Button 

@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import CreateEvent from "./pages/CreateEvent";
-import EventAccessibility from "./pages/EventAccessibility";
+
 import EventPricing from "./pages/EventPricing";
 import EventHost from "./pages/EventHost";
 
@@ -25,7 +25,6 @@ const App = () => (
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
             <Route path="create-event" element={<CreateEvent />} />
-            <Route path="event-accessibility" element={<EventAccessibility />} />
             <Route path="event-pricing" element={<EventPricing />} />
             <Route path="event-host" element={<EventHost />} />
           </Route>
