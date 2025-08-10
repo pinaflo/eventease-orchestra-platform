@@ -9,6 +9,7 @@ import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import CreateEvent from "./pages/CreateEvent";
 import EventFAQ from "./pages/EventFAQ";
+import EventSeating from "./pages/EventSeating";
 import EventPricing from "./pages/EventPricing";
 import EventHost from "./pages/EventHost";
 import EventAgenda from "./pages/EventAgenda";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="event-host" element={<EventHost />} />
             <Route path="event-agenda" element={<EventAgenda />} />
             <Route path="event-faq" element={<EventFAQ />} />
+            <Route path="event-seating" element={<EventSeating />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

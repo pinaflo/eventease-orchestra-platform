@@ -44,8 +44,7 @@ const EventFAQ = () => {
       title: "FAQ saved successfully!",
       description: "Your event FAQ has been saved.",
     });
-    // Navigate to next step or dashboard
-    navigate("/dashboard");
+    navigate("/dashboard/event-seating");
   };
 
   const addFAQ = () => {
@@ -168,7 +167,7 @@ const EventFAQ = () => {
               Back
             </Button>
             <Button type="submit">
-              Complete Event Setup
+              Continue to Seating
             </Button>
           </div>
         </form>
