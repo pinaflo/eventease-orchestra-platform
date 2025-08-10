@@ -38,8 +38,8 @@ const EventAccessibility = () => {
     try {
       // Handle form submission here
       console.log("Accessibility data:", data);
-      // Navigate to next step or back to dashboard
-      navigate("/dashboard");
+      // Navigate to next step
+      navigate("/dashboard/event-pricing");
     } catch (error) {
       console.error("Error submitting accessibility data:", error);
     } finally {
