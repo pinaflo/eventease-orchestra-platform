@@ -48,7 +48,7 @@ const formSchema = z.object({
   }),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
-  location: z.string().min(1, "Location is required"),
+  
 }).refine((data) => {
   if (data.startTime && data.endTime) {
     const start = new Date(`2000-01-01T${data.startTime}`);
@@ -78,7 +78,7 @@ const CreateEvent = () => {
       donationUrl: "",
       startTime: "",
       endTime: "",
-      location: "",
+      
     },
   });
 
@@ -389,19 +389,6 @@ const CreateEvent = () => {
                 />
               </div>
 
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Event location..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <FormField
                 control={form.control}
