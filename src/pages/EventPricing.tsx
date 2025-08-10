@@ -33,6 +33,7 @@ const pricingSchema = z.object({
   totalTickets: z.string().optional().transform((val) => val ? parseInt(val, 10) : undefined),
   enableDiscount: z.boolean().optional(),
   discountPercentage: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
+  refundPolicy: z.boolean().optional(),
 }).refine(
   (data) => {
     if (data.rsvpRequired && !data.rsvpDeadline) {
@@ -90,6 +91,7 @@ export default function EventPricing() {
       totalTickets: undefined,
       enableDiscount: false,
       discountPercentage: undefined,
+      refundPolicy: false,
     },
   });
 
@@ -444,6 +446,30 @@ export default function EventPricing() {
                       )}
                     />
                   )}
+
+                  {/* Refund Policy */}
+                  <FormField
+                    control={form.control}
+                    name="refundPolicy"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                        <div className="space-y-0.5">
+                          <FormLabel className="text-sm font-medium">
+                            Refund Policy
+                          </FormLabel>
+                          <p className="text-xs text-muted-foreground">
+                            Allow refunds up to 7 days before event
+                          </p>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
                   {/* Absorb Transaction Fees */}
                   <FormField
