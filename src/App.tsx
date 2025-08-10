@@ -11,6 +11,7 @@ import CreateEvent from "./pages/CreateEvent";
 
 import EventPricing from "./pages/EventPricing";
 import EventHost from "./pages/EventHost";
+import EventAgenda from "./pages/EventAgenda";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="create-event" element={<CreateEvent />} />
             <Route path="event-pricing" element={<EventPricing />} />
             <Route path="event-host" element={<EventHost />} />
+            <Route path="event-agenda" element={<EventAgenda />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

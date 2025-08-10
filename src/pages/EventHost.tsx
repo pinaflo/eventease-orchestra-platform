@@ -77,8 +77,8 @@ const EventHost = () => {
       description: "Your event has been created and is ready to publish.",
     });
 
-    // Navigate back to dashboard or event list
-    navigate("/dashboard");
+    // Navigate to agenda page
+    navigate("/dashboard/event-agenda");
   };
 
   const handlePrevious = () => {
