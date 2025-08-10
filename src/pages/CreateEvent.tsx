@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Clock, Sparkles, ArrowRight, MapPin, Car, Building, Accessibility, ChevronLeft, Home } from "lucide-react";
+import { CalendarIcon, Clock, Sparkles, ArrowRight, MapPin, Car, Building, Accessibility } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 
@@ -152,41 +152,7 @@ const CreateEvent = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Navigation Breadcrumb */}
-      <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => navigate('/')}
-          className="text-muted-foreground hover:text-foreground p-1"
-        >
-          <Home className="w-4 h-4" />
-        </Button>
-        <span>/</span>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => navigate('/dashboard')}
-          className="text-muted-foreground hover:text-foreground"
-        >
-          Dashboard
-        </Button>
-        <span>/</span>
-        <span className="text-foreground font-medium">Create Event</span>
-      </nav>
-
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => navigate('/dashboard')}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <ChevronLeft className="w-4 h-4 mr-1" />
-            Back to Dashboard
-          </Button>
-        </div>
         <h1 className="text-3xl font-bold text-foreground">Create New Event</h1>
         <p className="text-muted-foreground mt-2">
           Plan your next outdoor adventure and invite others to join
@@ -516,7 +482,7 @@ const CreateEvent = () => {
                         <div className="space-y-1 leading-none">
                           <FormLabel className="flex items-center gap-2">
                             <Building className="w-4 h-4" />
-                            Lift/Elevator Access
+                            Lift Access
                           </FormLabel>
                         </div>
                       </FormItem>
@@ -537,7 +503,7 @@ const CreateEvent = () => {
                         <div className="space-y-1 leading-none">
                           <FormLabel className="flex items-center gap-2">
                             <Accessibility className="w-4 h-4" />
-                            Wheelchair Accessible
+                            Wheelchair Access
                           </FormLabel>
                         </div>
                       </FormItem>
@@ -546,21 +512,22 @@ const CreateEvent = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between pt-6">
+              <div className="flex gap-4">
                 <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => navigate('/dashboard')}
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => navigate("/dashboard")}
                 >
-                  Cancel
+                  Previous
                 </Button>
+                
                 <Button 
                   type="submit" 
-                  className="bg-gradient-primary hover:opacity-90 transition-opacity"
+                  className="flex-1" 
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Creating..." : "Continue to Pricing"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Next
                 </Button>
               </div>
             </form>
