@@ -4,11 +4,26 @@ import { Rocket, CalendarPlus, BarChart3, Users, Settings } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const DashboardLayout = () => {
-  const navItems = [
-    { icon: CalendarPlus, label: "Create Event", path: "/dashboard/create-event" },
-    { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
-    { icon: Users, label: "Attendees", path: "/dashboard/attendees" },
-    { icon: Settings, label: "Settings", path: "/dashboard/settings" },
+  const navSections = [
+    {
+      title: "Event Management",
+      items: [
+        { icon: CalendarPlus, label: "Create Event", path: "/dashboard/create-event" },
+      ]
+    },
+    {
+      title: "Analytics & Management",
+      items: [
+        { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
+        { icon: Users, label: "Attendees", path: "/dashboard/attendees" },
+      ]
+    },
+    {
+      title: "Settings",
+      items: [
+        { icon: Settings, label: "Settings", path: "/dashboard/settings" },
+      ]
+    }
   ];
 
   return (
@@ -36,23 +51,31 @@ const DashboardLayout = () => {
 
         {/* Right Navigation */}
         <nav className="w-64 border-l border-border bg-muted/30 p-6">
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Navigation</h3>
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`
-                }
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </NavLink>
+          <div className="space-y-6">
+            {navSections.map((section) => (
+              <div key={section.title} className="space-y-2">
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                  {section.title}
+                </h3>
+                <div className="space-y-1">
+                  {section.items.map((item) => (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      className={({ isActive }) =>
+                        `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
+                          isActive
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        }`
+                      }
+                    >
+                      <item.icon className="w-5 h-5" />
+                      <span>{item.label}</span>
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </nav>
