@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock } from "lucide-react";
+import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Percent } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +28,11 @@ const pricingSchema = z.object({
   isPaid: z.boolean(),
   absorbTransactionFees: z.boolean().optional(),
   currency: z.string().default("GHS"),
+  pricingType: z.enum(["standard", "early_bird", "vip"]).optional(),
+  ticketPrice: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
+  totalTickets: z.string().optional().transform((val) => val ? parseInt(val, 10) : undefined),
+  enableDiscount: z.boolean().optional(),
+  discountPercentage: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
 }).refine(
   (data) => {
     if (data.rsvpRequired && !data.rsvpDeadline) {
@@ -38,6 +43,28 @@ const pricingSchema = z.object({
   {
     message: "RSVP deadline is required when RSVP is required",
     path: ["rsvpDeadline"],
+  }
+).refine(
+  (data) => {
+    if (data.isPaid && (!data.pricingType || !data.ticketPrice || !data.totalTickets)) {
+      return false;
+    }
+    return true;
+  },
+  {
+    message: "Pricing details are required for paid events",
+    path: ["pricingType"],
+  }
+).refine(
+  (data) => {
+    if (data.enableDiscount && (!data.discountPercentage || data.discountPercentage <= 0 || data.discountPercentage >= 100)) {
+      return false;
+    }
+    return true;
+  },
+  {
+    message: "Valid discount percentage (1-99) is required when discount is enabled",
+    path: ["discountPercentage"],
   }
 );
 
@@ -58,11 +85,17 @@ export default function EventPricing() {
       isPaid: false,
       absorbTransactionFees: false,
       currency: "GHS",
+      pricingType: undefined,
+      ticketPrice: undefined,
+      totalTickets: undefined,
+      enableDiscount: false,
+      discountPercentage: undefined,
     },
   });
 
   const watchRsvpRequired = form.watch("rsvpRequired");
   const watchIsPaid = form.watch("isPaid");
+  const watchEnableDiscount = form.watch("enableDiscount");
 
   const onSubmit = async (data: PricingFormData) => {
     setIsSubmitting(true);
@@ -291,6 +324,127 @@ export default function EventPricing() {
                       </FormItem>
                     )}
                   />
+
+                  {/* Pricing Type */}
+                  <FormField
+                    control={form.control}
+                    name="pricingType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Tag className="w-4 h-4" />
+                          Pricing Type
+                        </FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select pricing type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="standard">Standard</SelectItem>
+                            <SelectItem value="early_bird">Early Bird</SelectItem>
+                            <SelectItem value="vip">VIP</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Ticket Price and Total Tickets */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="ticketPrice"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="flex items-center gap-2">
+                            <DollarSign className="w-4 h-4" />
+                            Ticket Price
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              step="0.01"
+                              placeholder="0.00"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="totalTickets"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="flex items-center gap-2">
+                            <Ticket className="w-4 h-4" />
+                            Total Tickets
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Enter total tickets"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Enable Discount */}
+                  <FormField
+                    control={form.control}
+                    name="enableDiscount"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                        <div className="space-y-0.5">
+                          <FormLabel className="flex items-center gap-2 text-sm font-medium">
+                            <Percent className="w-4 h-4" />
+                            Enable Discount
+                          </FormLabel>
+                          <p className="text-xs text-muted-foreground">
+                            Offer discounted tickets
+                          </p>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Discount Details - Only show if discount is enabled */}
+                  {watchEnableDiscount && (
+                    <FormField
+                      control={form.control}
+                      name="discountPercentage"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Discount Percentage</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              min="1"
+                              max="99"
+                              placeholder="Enter discount percentage (1-99)"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
 
                   {/* Absorb Transaction Fees */}
                   <FormField
