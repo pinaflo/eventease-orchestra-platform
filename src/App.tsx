@@ -10,6 +10,7 @@ import DashboardHome from "./pages/DashboardHome";
 import CreateEvent from "./pages/CreateEvent";
 import EventFAQ from "./pages/EventFAQ";
 import EventSeating from "./pages/EventSeating";
+import EventReview from "./pages/EventReview";
 import EventPricing from "./pages/EventPricing";
 import EventHost from "./pages/EventHost";
 import EventAgenda from "./pages/EventAgenda";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="event-agenda" element={<EventAgenda />} />
             <Route path="event-faq" element={<EventFAQ />} />
             <Route path="event-seating" element={<EventSeating />} />
+            <Route path="event-review" element={<EventReview />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

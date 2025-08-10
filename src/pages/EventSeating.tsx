@@ -97,8 +97,7 @@ const EventSeating = () => {
       title: "Seating arrangements saved!",
       description: "Your event seating has been configured.",
     });
-    // Navigate to next step or complete setup
-    navigate("/dashboard");
+    navigate("/dashboard/event-review");
   };
 
   const needsTables = watchLayout === "rounds" || watchLayout === "banquet" || watchLayout === "classroom" || watchLayout === "cocktail";
@@ -390,7 +389,7 @@ const EventSeating = () => {
               Back
             </Button>
             <Button type="submit">
-              Complete Event Setup
+              Review & Publish
             </Button>
           </div>
         </form>
