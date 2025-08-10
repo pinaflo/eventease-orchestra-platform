@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Clock, Sparkles } from "lucide-react";
+import { CalendarIcon, Clock, Sparkles, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -63,6 +64,7 @@ const formSchema = z.object({
 
 const CreateEvent = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -85,19 +87,15 @@ const CreateEvent = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      // Here you would typically send the data to your backend
+      // Save form data and navigate to accessibility page
       console.log("Event data:", values);
       
-      toast({
-        title: "Event Created!",
-        description: `${values.title} has been scheduled for ${format(values.date, "PPP")}`,
-      });
-      
-      form.reset();
+      // Navigate to accessibility page
+      navigate("/dashboard/event-accessibility");
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to create event. Please try again.",
+        description: "Failed to proceed. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -423,7 +421,10 @@ const CreateEvent = () => {
                 className="w-full" 
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Creating Event..." : "Create Event"}
+                <span className="flex items-center gap-2">
+                  {isSubmitting ? "Proceeding..." : "Next: Location & Accessibility"}
+                  <ArrowRight className="w-4 h-4" />
+                </span>
               </Button>
             </form>
           </Form>
