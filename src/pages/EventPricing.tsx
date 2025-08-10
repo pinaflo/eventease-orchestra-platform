@@ -17,6 +17,13 @@ import { CalendarIcon, Users, DollarSign, Clock, Globe, Lock, Tag, Ticket, Perce
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
+const pricingTierSchema = z.object({
+  name: z.string().min(1, "Tier name is required"),
+  price: z.string().min(1, "Price is required").transform((val) => parseFloat(val)),
+  totalTickets: z.string().min(1, "Total tickets is required").transform((val) => parseInt(val, 10)),
+  description: z.string().optional(),
+});
+
 const addOnSchema = z.object({
   name: z.string().min(1, "Add-on name is required"),
   description: z.string().optional(),
@@ -36,9 +43,7 @@ const pricingSchema = z.object({
   isPaid: z.boolean(),
   absorbTransactionFees: z.boolean().optional(),
   currency: z.string().default("GHS"),
-  pricingType: z.enum(["standard", "early_bird", "vip"]).optional(),
-  ticketPrice: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
-  totalTickets: z.string().optional().transform((val) => val ? parseInt(val, 10) : undefined),
+  pricingTiers: z.array(pricingTierSchema).optional(),
   enableDiscount: z.boolean().optional(),
   discountPercentage: z.string().optional().transform((val) => val ? parseFloat(val) : undefined),
   refundPolicy: z.boolean().optional(),
@@ -56,14 +61,14 @@ const pricingSchema = z.object({
   }
 ).refine(
   (data) => {
-    if (data.isPaid && (!data.pricingType || !data.ticketPrice || !data.totalTickets)) {
+    if (data.isPaid && (!data.pricingTiers || data.pricingTiers.length === 0)) {
       return false;
     }
     return true;
   },
   {
-    message: "Pricing details are required for paid events",
-    path: ["pricingType"],
+    message: "At least one pricing tier is required for paid events",
+    path: ["pricingTiers"],
   }
 ).refine(
   (data) => {
@@ -84,6 +89,7 @@ export default function EventPricing() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addOns, setAddOns] = useState([{ name: "", description: "", price: "", quantity: "", image: "" }]);
+  const [pricingTiers, setPricingTiers] = useState([{ name: "Standard", price: "", totalTickets: "", description: "" }]);
 
   const form = useForm<PricingFormData>({
     resolver: zodResolver(pricingSchema),
@@ -96,9 +102,7 @@ export default function EventPricing() {
       isPaid: false,
       absorbTransactionFees: false,
       currency: "GHS",
-      pricingType: undefined,
-      ticketPrice: undefined,
-      totalTickets: undefined,
+      pricingTiers: [],
       enableDiscount: false,
       discountPercentage: undefined,
       refundPolicy: false,
@@ -126,10 +130,28 @@ export default function EventPricing() {
     setAddOns(updatedAddOns);
   };
 
+  const addNewPricingTier = () => {
+    if (pricingTiers.length < 10) {
+      setPricingTiers([...pricingTiers, { name: "", price: "", totalTickets: "", description: "" }]);
+    }
+  };
+
+  const removePricingTier = (index: number) => {
+    if (pricingTiers.length > 1) {
+      setPricingTiers(pricingTiers.filter((_, i) => i !== index));
+    }
+  };
+
+  const updatePricingTier = (index: number, field: string, value: string) => {
+    const updatedTiers = [...pricingTiers];
+    updatedTiers[index] = { ...updatedTiers[index], [field]: value };
+    setPricingTiers(updatedTiers);
+  };
+
   const onSubmit = async (data: PricingFormData) => {
     setIsSubmitting(true);
     try {
-      // Include add-ons in the submission data
+      // Include add-ons and pricing tiers in the submission data
       const formattedAddOns = addOns
         .filter(addOn => addOn.name.trim() !== "")
         .map(addOn => ({
@@ -137,11 +159,22 @@ export default function EventPricing() {
           description: addOn.description,
           price: parseFloat(addOn.price) || 0,
           quantity: parseInt(addOn.quantity) || 0,
+          image: addOn.image,
+        }));
+
+      const formattedPricingTiers = pricingTiers
+        .filter(tier => tier.name.trim() !== "" && tier.price.trim() !== "")
+        .map(tier => ({
+          name: tier.name,
+          price: parseFloat(tier.price) || 0,
+          totalTickets: parseInt(tier.totalTickets) || 0,
+          description: tier.description,
         }));
       
       const submissionData = {
         ...data,
         addOns: formattedAddOns,
+        pricingTiers: formattedPricingTiers,
       };
       
       console.log("Pricing data:", submissionData);
@@ -369,76 +402,96 @@ export default function EventPricing() {
                     )}
                   />
 
-                  {/* Pricing Type */}
-                  <FormField
-                    control={form.control}
-                    name="pricingType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Tag className="w-4 h-4" />
-                          Pricing Type
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select pricing type" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="standard">Standard</SelectItem>
-                            <SelectItem value="early_bird">Early Bird</SelectItem>
-                            <SelectItem value="vip">VIP</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  {/* Pricing Tiers */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">Pricing Tiers</h4>
+                        <p className="text-xs text-muted-foreground">
+                          Create up to 10 different pricing tiers for your event
+                        </p>
+                      </div>
+                      {pricingTiers.length < 10 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={addNewPricingTier}
+                          className="flex items-center gap-2"
+                        >
+                          <Plus className="w-4 h-4" />
+                          Add Tier
+                        </Button>
+                      )}
+                    </div>
 
-                  {/* Ticket Price and Total Tickets */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="ticketPrice"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Ticket Price
-                          </FormLabel>
-                          <FormControl>
+                    {pricingTiers.map((tier, index) => (
+                      <div key={index} className="space-y-3 rounded-lg border p-3 bg-background">
+                        <div className="flex items-center justify-between">
+                          <h5 className="text-sm font-medium">Tier {index + 1}</h5>
+                          {pricingTiers.length > 1 && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removePricingTier(index)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <Label htmlFor={`tier-name-${index}`} className="text-xs">Tier Name *</Label>
                             <Input
+                              id={`tier-name-${index}`}
+                              placeholder="e.g., Standard, VIP, Early Bird"
+                              value={tier.name}
+                              onChange={(e) => updatePricingTier(index, "name", e.target.value)}
+                              className="mt-1"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor={`tier-price-${index}`} className="text-xs">Price *</Label>
+                            <Input
+                              id={`tier-price-${index}`}
                               type="number"
                               step="0.01"
                               placeholder="0.00"
-                              {...field}
+                              value={tier.price}
+                              onChange={(e) => updatePricingTier(index, "price", e.target.value)}
+                              className="mt-1"
                             />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                          </div>
+                        </div>
 
-                    <FormField
-                      control={form.control}
-                      name="totalTickets"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center gap-2">
-                            <Ticket className="w-4 h-4" />
-                            Total Tickets
-                          </FormLabel>
-                          <FormControl>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <Label htmlFor={`tier-tickets-${index}`} className="text-xs">Available Tickets *</Label>
                             <Input
+                              id={`tier-tickets-${index}`}
                               type="number"
-                              placeholder="Enter total tickets"
-                              {...field}
+                              placeholder="e.g., 100"
+                              value={tier.totalTickets}
+                              onChange={(e) => updatePricingTier(index, "totalTickets", e.target.value)}
+                              className="mt-1"
                             />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                          </div>
+                          <div>
+                            <Label htmlFor={`tier-description-${index}`} className="text-xs">Description</Label>
+                            <Input
+                              id={`tier-description-${index}`}
+                              placeholder="Optional tier description"
+                              value={tier.description}
+                              onChange={(e) => updatePricingTier(index, "description", e.target.value)}
+                              className="mt-1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
                   {/* Enable Discount */}
