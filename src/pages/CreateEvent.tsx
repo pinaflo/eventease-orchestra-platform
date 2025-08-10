@@ -416,16 +416,24 @@ const CreateEvent = () => {
                 )}
               />
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isSubmitting}
-              >
-                <span className="flex items-center gap-2">
-                  {isSubmitting ? "Proceeding..." : "Next: Location & Accessibility"}
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </Button>
+              <div className="flex gap-4">
+                <Button 
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Previous
+                </Button>
+                
+                <Button 
+                  type="submit" 
+                  className="flex-1" 
+                  disabled={isSubmitting}
+                >
+                  Next
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>

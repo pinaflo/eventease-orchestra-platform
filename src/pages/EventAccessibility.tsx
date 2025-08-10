@@ -153,13 +153,24 @@ const EventAccessibility = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Saving..." : "Save & Continue"}
-                </Button>
+                <div className="flex gap-4">
+                  <Button 
+                    type="button"
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => navigate("/dashboard/create-event")}
+                  >
+                    Previous
+                  </Button>
+                  
+                  <Button 
+                    type="submit" 
+                    className="flex-1" 
+                    disabled={isSubmitting}
+                  >
+                    Next
+                  </Button>
+                </div>
               </form>
             </Form>
           </CardContent>
