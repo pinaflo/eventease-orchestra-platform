@@ -91,7 +91,7 @@ const Dashboard = () => {
             <Button 
               size="lg" 
               className="bg-gradient-primary hover:opacity-90 transition-opacity"
-              onClick={() => navigate('/dashboard/event/create')}
+              onClick={() => navigate('/dashboard/event/create-event')}
             >
               Create New Event
             </Button>
