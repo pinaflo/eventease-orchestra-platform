@@ -2,10 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Users, DollarSign, MapPin, Clock, Star } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const recentEvents = [
     {
       id: 1,
@@ -87,15 +85,6 @@ const Dashboard = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Monitor your events, manage vendors, and track performance all in one place.
           </p>
-          <div className="mt-8">
-            <Button 
-              size="lg" 
-              className="bg-gradient-primary hover:opacity-90 transition-opacity"
-              onClick={() => navigate('/dashboard/create-event')}
-            >
-              Create New Event
-            </Button>
-          </div>
         </div>
 
         {/* Stats Cards */}

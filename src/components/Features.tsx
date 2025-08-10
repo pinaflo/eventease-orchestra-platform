@@ -2,10 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Calendar, Users, Ticket, Utensils, Shield, Zap } from "lucide-react";
 import restaurantImage from "@/assets/black-culture-dinner.jpg";
 import vendorsImage from "@/assets/black-culture-vendors.jpg";
-import { useNavigate } from "react-router-dom";
 
 const Features = () => {
-  const navigate = useNavigate();
   const features = [
     {
       icon: Calendar,
@@ -58,10 +56,7 @@ const Features = () => {
           {features.map((feature, index) => (
             <Card 
               key={index}
-              className={`bg-gradient-card border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-card hover:-translate-y-1 group ${
-                feature.title === 'Event Management' ? 'cursor-pointer' : ''
-              }`}
-              onClick={feature.title === 'Event Management' ? () => navigate('/dashboard/create-event') : undefined}
+              className="bg-gradient-card border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-card hover:-translate-y-1 group"
             >
               <CardHeader>
                 <div className={`w-12 h-12 rounded-lg bg-background/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
