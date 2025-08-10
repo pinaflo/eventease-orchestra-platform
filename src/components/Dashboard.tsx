@@ -60,14 +60,14 @@ const Dashboard = () => {
       name: "The Grand Ballroom",
       cuisine: "Fine Dining",
       capacity: "50-200 guests",
-      priceRange: "$$$",
+      priceRange: "₵₵₵",
       availability: "3 slots today"
     },
     {
       name: "Garden Terrace",
       cuisine: "Mediterranean",
       capacity: "20-80 guests",
-      priceRange: "$$",
+      priceRange: "₵₵",
       availability: "5 slots today"
     }
   ];
