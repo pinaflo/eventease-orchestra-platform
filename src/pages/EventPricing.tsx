@@ -359,8 +359,7 @@ export default function EventPricing() {
                       name="ticketPrice"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2">
-                            <DollarSign className="w-4 h-4" />
+                          <FormLabel>
                             Ticket Price
                           </FormLabel>
                           <FormControl>
