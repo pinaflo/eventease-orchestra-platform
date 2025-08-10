@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
-import CreateEvent from "./pages/event/create-event/CreateEvent";
+import CreateEvent from "./pages/event/CreateEvent";
 import EventFAQ from "./pages/EventFAQ";
 import EventSeating from "./pages/EventSeating";
 import EventReview from "./pages/EventReview";
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
-            <Route path="event/create-event" element={<CreateEvent />} />
+            <Route path="event/create" element={<CreateEvent />} />
             <Route path="event-pricing" element={<EventPricing />} />
             <Route path="event-host" element={<EventHost />} />
             <Route path="event-agenda" element={<EventAgenda />} />
