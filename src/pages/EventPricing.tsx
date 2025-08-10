@@ -81,8 +81,7 @@ export default function EventPricing() {
     <div className="container mx-auto max-w-2xl p-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <DollarSign className="w-5 h-5" />
+          <CardTitle>
             Event Pricing & Details
           </CardTitle>
         </CardHeader>
@@ -246,8 +245,7 @@ export default function EventPricing() {
                 render={({ field }) => (
                   <FormItem className="flex items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
-                      <FormLabel className="flex items-center gap-2 text-base">
-                        <DollarSign className="w-4 h-4" />
+                      <FormLabel className="text-base">
                         Paid Event
                       </FormLabel>
                       <p className="text-sm text-muted-foreground">
