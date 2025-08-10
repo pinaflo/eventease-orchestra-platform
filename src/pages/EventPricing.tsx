@@ -179,7 +179,7 @@ export default function EventPricing() {
       
       console.log("Pricing data:", submissionData);
       // Handle form submission here
-      navigate("/dashboard");
+      navigate("/dashboard/event-host");
     } catch (error) {
       console.error("Error submitting pricing:", error);
     } finally {

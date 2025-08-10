@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Rocket, CalendarPlus, BarChart3, Users, Settings, UserCheck } from "lucide-react";
+import { Rocket, CalendarPlus, BarChart3, Users, Settings } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const DashboardLayout = () => {
   const navItems = [
     { icon: CalendarPlus, label: "Create Event", path: "/dashboard/create-event" },
-    { icon: UserCheck, label: "Event Host", path: "/dashboard/event-host" },
     { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
     { icon: Users, label: "Attendees", path: "/dashboard/attendees" },
     { icon: Settings, label: "Settings", path: "/dashboard/settings" },

@@ -2,17 +2,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const hostSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Host name is required"),
   email: z.string().email("Invalid email address"),
   jobTitle: z.string().min(1, "Job title is required"),
   phone: z.string().optional(),
@@ -26,6 +27,7 @@ const EventHost = () => {
   const [hostPhoto, setHostPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const form = useForm<HostFormData>({
     resolver: zodResolver(hostSchema),
@@ -71,30 +73,33 @@ const EventHost = () => {
     console.log("Host photo:", hostPhoto);
     
     toast({
-      title: "Host saved",
-      description: "Event host information has been saved successfully.",
+      title: "Event created successfully!",
+      description: "Your event has been created and is ready to publish.",
     });
+
+    // Navigate back to dashboard or event list
+    navigate("/dashboard");
   };
 
-  const handleCancel = () => {
-    form.reset();
-    removePhoto();
+  const handlePrevious = () => {
+    navigate("/dashboard/event-pricing");
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Edit Host</h1>
-          <p className="text-muted-foreground mt-2">
-            Add and manage event host information
-          </p>
-        </div>
+    <div className="max-w-2xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground">Event Host</h1>
+        <p className="text-muted-foreground mt-2">
+          Add host information for your event
+        </p>
       </div>
 
-      <Card className="max-w-2xl">
+      <Card>
         <CardHeader>
           <CardTitle>Host Information</CardTitle>
+          <CardDescription>
+            Configure the host details that will be displayed on your event page
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -251,12 +256,21 @@ const EventHost = () => {
               />
 
               {/* Action Buttons */}
-              <div className="flex space-x-4 pt-4">
-                <Button type="button" variant="outline" onClick={handleCancel}>
-                  Cancel
+              <div className="flex gap-4">
+                <Button 
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  onClick={handlePrevious}
+                >
+                  Previous
                 </Button>
-                <Button type="submit">
-                  Save Changes
+                
+                <Button 
+                  type="submit" 
+                  className="flex-1"
+                >
+                  Complete Event
                 </Button>
               </div>
             </form>
