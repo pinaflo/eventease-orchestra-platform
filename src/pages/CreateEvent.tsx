@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, Clock, Sparkles, ArrowRight, MapPin, Car, Building, Accessibility } from "lucide-react";
+import { CalendarIcon, Clock, Sparkles, ArrowRight, MapPin, Car, Building, Accessibility, ChevronLeft, Home } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 
@@ -152,7 +152,41 @@ const CreateEvent = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* Navigation Breadcrumb */}
+      <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => navigate('/')}
+          className="text-muted-foreground hover:text-foreground p-1"
+        >
+          <Home className="w-4 h-4" />
+        </Button>
+        <span>/</span>
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => navigate('/dashboard')}
+          className="text-muted-foreground hover:text-foreground"
+        >
+          Dashboard
+        </Button>
+        <span>/</span>
+        <span className="text-foreground font-medium">Create Event</span>
+      </nav>
+
       <div className="mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/dashboard')}
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            Back to Dashboard
+          </Button>
+        </div>
         <h1 className="text-3xl font-bold text-foreground">Create New Event</h1>
         <p className="text-muted-foreground mt-2">
           Plan your next outdoor adventure and invite others to join
