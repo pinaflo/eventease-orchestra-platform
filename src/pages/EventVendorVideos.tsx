@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Upload, Video, Play, Plus, X } from "lucide-react";
 
 const EventVendorVideos = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [videoUrl, setVideoUrl] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
@@ -221,11 +223,11 @@ const EventVendorVideos = () => {
 
         {/* Navigation */}
         <div className="flex justify-between pt-6">
-          <Button variant="outline" onClick={() => window.history.back()}>
-            Previous
+          <Button variant="outline" onClick={() => navigate("/dashboard/vendor-gallery")}>
+            Previous: Service Gallery
           </Button>
-          <Button>
-            Continue Setup
+          <Button onClick={() => navigate("/dashboard/vendor-pricing")}>
+            Next: Pricing
           </Button>
         </div>
       </div>
