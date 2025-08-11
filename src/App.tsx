@@ -16,7 +16,6 @@ import EventHost from "./pages/EventHost";
 import EventAgenda from "./pages/EventAgenda";
 import VendorNetwork from "./pages/VendorNetwork";
 import EventVendorSetup from "./pages/EventVendorSetup";
-import EventVendorAvailability from "./pages/EventVendorAvailability";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +32,6 @@ const App = () => (
             <Route path="create-event" element={<CreateEvent />} />
             <Route path="vendor-network" element={<VendorNetwork />} />
             <Route path="vendor-setup" element={<EventVendorSetup />} />
-            <Route path="vendor-availability" element={<EventVendorAvailability />} />
             <Route path="event-pricing" element={<EventPricing />} />
             <Route path="event-host" element={<EventHost />} />
             <Route path="event-agenda" element={<EventAgenda />} />

@@ -35,13 +35,7 @@ const EventVendorSetup = () => {
     "Entertainment",
     "Decoration",
     "Planning & Coordination",
-    "Venues",
-    "Cleaning Service",
-    "Make Up Artist",
-    "Hair Stylist",
-    "Bartender",
-    "Marketing Specialist",
-    "DJ"
+    "Venues"
   ];
 
   const priceRanges = [
@@ -308,11 +302,6 @@ const EventVendorSetup = () => {
       <div className="flex gap-4">
         <Button onClick={handleSave} className="flex-1">
           Save Vendor Profile
-        </Button>
-        <Button variant="outline" asChild>
-          <Link to="/dashboard/vendor-availability">
-            Next: Set Availability
-          </Link>
         </Button>
         <Button variant="outline" asChild>
           <Link to="/dashboard/vendor-network">
