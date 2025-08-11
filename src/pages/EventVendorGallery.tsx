@@ -288,18 +288,15 @@ const EventVendorGallery = () => {
       )}
 
       {/* Actions */}
-      <div className="flex gap-4">
-        <Button onClick={handleSave} className="flex-1">
-          Save Gallery
-        </Button>
+      <div className="flex justify-between">
         <Button variant="outline" asChild>
           <Link to="/dashboard/vendor-availability">
-            Back to Availability
+            Previous
           </Link>
         </Button>
-        <Button variant="secondary" asChild>
-          <Link to="/dashboard/vendor-setup">
-            Complete Setup
+        <Button asChild>
+          <Link to="/dashboard/vendor-videos">
+            Next: Service Videos
           </Link>
         </Button>
       </div>
