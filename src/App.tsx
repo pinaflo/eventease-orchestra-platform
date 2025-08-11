@@ -21,6 +21,7 @@ import EventVendorGallery from "./pages/EventVendorGallery";
 import EventVendorVideos from "./pages/EventVendorVideos";
 import EventVendorPricing from "./pages/EventVendorPricing";
 import EventVendorLocation from "./pages/EventVendorLocation";
+import TicketManagement from "./pages/TicketManagement";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="vendor-videos" element={<EventVendorVideos />} />
             <Route path="vendor-pricing" element={<EventVendorPricing />} />
             <Route path="vendor-location" element={<EventVendorLocation />} />
+            <Route path="tickets" element={<TicketManagement />} />
             <Route path="event-pricing" element={<EventPricing />} />
             <Route path="event-host" element={<EventHost />} />
             <Route path="event-agenda" element={<EventAgenda />} />
