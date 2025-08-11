@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/hooks/use-toast";
-import { Coins, Package, MapPin, Plus, X, Clock, Users } from "lucide-react";
+import { CreditCard, Package, MapPin, Plus, X, Clock, Users } from "lucide-react";
 
 const EventVendorPricing = () => {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const EventVendorPricing = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Coins className="w-5 h-5" />
+              <CreditCard className="w-5 h-5" />
               Base Pricing
             </CardTitle>
           </CardHeader>
