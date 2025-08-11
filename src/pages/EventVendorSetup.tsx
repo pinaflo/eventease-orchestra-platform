@@ -35,7 +35,13 @@ const EventVendorSetup = () => {
     "Entertainment",
     "Decoration",
     "Planning & Coordination",
-    "Venues"
+    "Venues",
+    "Cleaning Service",
+    "Make Up Artist",
+    "Hair Stylist",
+    "Bartender",
+    "Marketing Specialist",
+    "DJ"
   ];
 
   const priceRanges = [
