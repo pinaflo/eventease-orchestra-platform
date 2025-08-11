@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/hooks/use-toast";
-import { DollarSign, Package, MapPin, Plus, X, Clock, Users } from "lucide-react";
+import { Coins, Package, MapPin, Plus, X, Clock, Users } from "lucide-react";
 
 const EventVendorPricing = () => {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const EventVendorPricing = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <DollarSign className="w-5 h-5" />
+              <Coins className="w-5 h-5" />
               Base Pricing
             </CardTitle>
           </CardHeader>
@@ -84,7 +84,7 @@ const EventVendorPricing = () => {
               <div className="space-y-2">
                 <Label htmlFor="baseRate">Base Rate</Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₵</span>
                   <Input
                     id="baseRate"
                     type="number"
@@ -98,7 +98,7 @@ const EventVendorPricing = () => {
               <div className="space-y-2">
                 <Label htmlFor="hourlyRate">Hourly Rate</Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₵</span>
                   <Input
                     id="hourlyRate"
                     type="number"
@@ -112,7 +112,7 @@ const EventVendorPricing = () => {
               <div className="space-y-2">
                 <Label htmlFor="setupFee">Setup Fee</Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₵</span>
                   <Input
                     id="setupFee"
                     type="number"
@@ -163,7 +163,7 @@ const EventVendorPricing = () => {
                   <div className="space-y-2">
                     <Label>Price</Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₵</span>
                       <Input
                         type="number"
                         placeholder="800"
@@ -264,7 +264,7 @@ const EventVendorPricing = () => {
                   <div className="space-y-2">
                     <Label htmlFor="travelFee">Travel Fee</Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₵</span>
                       <Input
                         id="travelFee"
                         type="number"
