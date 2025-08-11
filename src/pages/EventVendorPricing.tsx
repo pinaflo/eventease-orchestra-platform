@@ -58,7 +58,7 @@ const EventVendorPricing = () => {
 
   const handleNext = () => {
     handleSubmit();
-    navigate("/dashboard");
+    navigate("/dashboard/vendor-location");
   };
 
   return (
@@ -306,7 +306,7 @@ const EventVendorPricing = () => {
             Previous: Service Videos
           </Button>
           <Button onClick={handleNext}>
-            Complete Setup
+            Next: Location
           </Button>
         </div>
       </div>
