@@ -323,6 +323,11 @@ const EventVendorAvailability = () => {
             Back to Setup
           </Link>
         </Button>
+        <Button variant="secondary" asChild>
+          <Link to="/dashboard/vendor-gallery">
+            Next: Service Gallery
+          </Link>
+        </Button>
       </div>
     </div>
   );
