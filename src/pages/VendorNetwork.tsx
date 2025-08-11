@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Phone, Mail, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const VendorNetwork = () => {
   const vendors = [
@@ -114,9 +115,11 @@ const VendorNetwork = () => {
             Connect with trusted vendors for your events
           </p>
         </div>
-        <Button>
-          <Users className="w-4 h-4 mr-2" />
-          Add New Vendor
+        <Button asChild>
+          <Link to="/dashboard/vendor-setup">
+            <Users className="w-4 h-4 mr-2" />
+            Add New Vendor
+          </Link>
         </Button>
       </div>
 
