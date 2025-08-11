@@ -310,6 +310,11 @@ const EventVendorSetup = () => {
           Save Vendor Profile
         </Button>
         <Button variant="outline" asChild>
+          <Link to="/dashboard/vendor-availability">
+            Next: Set Availability
+          </Link>
+        </Button>
+        <Button variant="outline" asChild>
           <Link to="/dashboard/vendor-network">
             Cancel
           </Link>
